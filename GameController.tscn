@@ -1,0 +1,136 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://textures/ui/gamebg.png" type="Texture" id=1]
+[ext_resource path="res://textures/ui/ZOSBar.png" type="Texture" id=2]
+[ext_resource path="res://scripts/GameState.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://themes/Classic95/Classic95.tres" type="Theme" id=5]
+[ext_resource path="res://scripts/GameController.gd" type="Script" id=6]
+[ext_resource path="res://themes/Classic311/Classic311.tres" type="Theme" id=7]
+[ext_resource path="res://scripts/UiControl.gd" type="Script" id=8]
+
+[node name="GameController" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="GameState" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="UiControl" type="Control" parent="GUI"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 5 )
+script = ExtResource( 8 )
+
+[node name="topbar" type="Sprite" parent="GUI/UiControl"]
+position = Vector2( 651.6, 1.80002 )
+texture = ExtResource( 2 )
+
+[node name="corpname" type="Label" parent="GUI/UiControl"]
+margin_left = 610.048
+margin_top = 12.5858
+margin_right = 959.048
+margin_bottom = 69.5858
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Test test"
+
+[node name="total_accounts" type="Label" parent="GUI/UiControl"]
+margin_left = 1051.27
+margin_top = 29.506
+margin_right = 1400.27
+margin_bottom = 86.506
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Test test"
+
+[node name="total_cash" type="Label" parent="GUI/UiControl"]
+margin_left = 1051.27
+margin_top = 7.586
+margin_right = 1400.27
+margin_bottom = 64.586
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Test test"
+
+[node name="cash_label" type="Label" parent="GUI/UiControl"]
+margin_left = 975.021
+margin_top = 8.336
+margin_right = 1324.02
+margin_bottom = 65.336
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Cash:"
+
+[node name="acct_label" type="Label" parent="GUI/UiControl"]
+margin_left = 975.021
+margin_top = 29.506
+margin_right = 1324.02
+margin_bottom = 86.506
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Accounts:"
+
+[node name="BottomNav" type="Control" parent="GUI/UiControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 7 )
+
+[node name="new_op_btn" type="Button" parent="GUI/UiControl/BottomNav"]
+margin_left = 433.082
+margin_top = 757.707
+margin_right = 548.082
+margin_bottom = 855.707
+text = "Add operation"
+
+[node name="new_biz_btn" type="Button" parent="GUI/UiControl/BottomNav"]
+margin_left = 577.332
+margin_top = 759.828
+margin_right = 692.332
+margin_bottom = 857.828
+text = "Add business"
+
+[node name="new_bank_btn" type="Button" parent="GUI/UiControl/BottomNav"]
+margin_left = 727.945
+margin_top = 760.535
+margin_right = 842.945
+margin_bottom = 858.535
+text = "Add bank"
+
+[node name="GlobalModals" type="Control" parent="GUI/UiControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 7 )
+
+[node name="AddOperation" type="WindowDialog" parent="GUI/UiControl/GlobalModals"]
+margin_left = 348.0
+margin_top = 205.0
+margin_right = 723.0
+margin_bottom = 566.0
+
+[node name="OpButtons" type="VBoxContainer" parent="GUI/UiControl/GlobalModals/AddOperation"]
+margin_left = 48.0
+margin_top = 154.0
+margin_right = 332.0
+margin_bottom = 338.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="gamebg" type="TextureRect" parent="Camera2D"]
+margin_left = -2.12132
+margin_top = -2.12134
+margin_right = 1297.88
+margin_bottom = 897.879
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="pressed" from="GUI/UiControl/BottomNav/new_op_btn" to="GUI/UiControl" method="_on_new_op_btn_pressed"]
