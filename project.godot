@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Camera2d="*res://scripts/Camera2D.gd"
+GameState="*res://scripts/GameState.gd"
 
 [display]
 
