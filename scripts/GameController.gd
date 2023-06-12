@@ -1,5 +1,8 @@
 extends Node2D
 
+var op_instance = load("res://scenes/OpInstance.tscn")
+var bank_instance = load("res://scenes/BankInstance.tscn")
+
 # Built-in funcs
 
 func _ready():
@@ -19,10 +22,10 @@ func _input(event):
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			match GameState.state.mode:			
 				"place_op":
-					self._place_icon(GameState.state.place_cache[0], coords[0], coords[0])
+					self._place_icon(GameState.state.place_cache[0], "op", coords[0], coords[0])
 					GameState.state.place_cache = []
 				"place_bank":
-					self._place_icon(GameState.state.place_cache[0], coords[0], coords[0])
+					self._place_icon(GameState.state.place_cache[0], "bank", coords[0], coords[0])
 					GameState.state.place_cache = []		
 				_:
 					print("guh")
@@ -49,17 +52,23 @@ func _update_accounts(amt):
 	$GameState.state.total_accounts = new_accounts_total
 	$GUI/UiController/total_accounts.text = "$ " + str(new_accounts_total)
 	
-func _place_icon(data, x, y):
-	var icon = TextureButton.new()
-	icon.texture_normal = load(data.icon_img)
-	icon.set_global_position(Vector2(x, y))
-	icon.hint_tooltip = data.name
-	icon.connect("pressed", $GUI/UiController, "_show_op_info_menu", [data.asset])
-	$Camera2D/IconController.add_child(icon)
+func _place_icon(data, type, x, y):
+	var instance
 	
-	self._update_cash(0 - data.upfront)
+	match type:
+		"op":
+			instance = op_instance.instance()
+		"bank":
+			instance = bank_instance.instance()
+			
+	instance.create(data)
+	instance.set_global_position(Vector2(x, y))
+	instance.set_popup_position(Vector2(x, y))
+	instance.set_info_position(Vector2(x,y-200))
+	instance.hint_tooltip = data.name
+
+	$Camera2D/IconController.add_child(instance)
+	
+	#self._update_cash(0 - data.upfront)
 	
 	GameState.state.mode = "look"
-	GameState.state.available_ops.erase(data.asset)
-	GameState.state.current_ops[data.asset] = data
-

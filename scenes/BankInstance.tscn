@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/Classic311/Classic311.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/BankInstance.gd" type="Script" id=2]
+
+[node name="BankInstance" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+margin_right = 126.0
+margin_bottom = 81.0
+items = [ "Info", null, 0, false, false, 0, 0, null, "", false, "Manage", null, 0, false, false, 1, 0, null, "", false, "Connect", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="Info" type="WindowDialog" parent="."]
+margin_left = 115.0
+margin_top = -363.0
+margin_right = 519.0
+margin_bottom = -11.0
+theme = ExtResource( 1 )
+window_title = "Operation Info"
+
+[node name="Panel" type="Panel" parent="Info"]
+margin_left = 32.7573
+margin_top = 31.6777
+margin_right = 373.757
+margin_bottom = 186.678
+
+[node name="bank_info_text" type="RichTextLabel" parent="Info"]
+margin_left = 49.0
+margin_top = 45.0
+margin_right = 364.0
+margin_bottom = 178.0
+
+[node name="OK" type="Button" parent="Info"]
+margin_left = 160.464
+margin_top = 273.172
+margin_right = 240.464
+margin_bottom = 317.172
+text = "OK"
+
+[connection signal="pressed" from="." to="." method="_on_BankInstance_pressed"]

@@ -19,7 +19,8 @@ var canonical_ops = {
 		"facility": "biker shack",
 		"func": "_2cb_op",
 		"proposal_img": "res://textures/ui/biker.png",
-		"icon_img": "res://textures/ui/biker_shack.png"
+		"icon_img": "res://textures/ui/biker_shack.png",
+		"operating_cost": 3000
 	},
 	"rare_animals": {
 		"name": "RARE ANIMAL SMUGGLING",
@@ -34,7 +35,8 @@ var canonical_ops = {
 		"facility": "mcmansion",
 		"func": "_rare_animals_op",
 		"proposal_img": "res://textures/ui/biker.png",
-		"icon_img": "res://textures/ui/exotic_animal_ring.png"
+		"icon_img": "res://textures/ui/exotic_animal_ring.png",
+		"operating_cost": 15000
 		}
 }
 
@@ -47,9 +49,9 @@ var canonical_banks = {
 		"shadiness": 56.43,
 		"security": 15.00,
 		"offshore": false,
-		"amount": 0.0,
 		"proposal_img": "res://textures/ui/bank_menu.png",
-		"icon_img": "res://textures/ui/us_bank.png"
+		"icon_img": "res://textures/ui/us_bank.png",
+		"account_total": 0.0
 	},
 	"Cayman Islands Community Banking Solutions": {
 		"name": "Cayman Islands Community Banking Solutions",
@@ -59,7 +61,9 @@ var canonical_banks = {
 		"shadiness": 10.00,
 		"security": 50.00,
 		"offshore": true,
-		"amount": 0.0
+		"proposal_img": "res://textures/ui/bank_menu.png",
+		"icon_img": "res://textures/ui/us_bank.png",
+		"account_total": 0.0
 	}
 }
 
@@ -68,9 +72,9 @@ var state = {
 	"total_cash": 42000.00,
 	"total_accounts": 00.00,
 	"available_ops": {"2cb": canonical_ops["2cb"], "rare_animals": canonical_ops["rare_animals"]},
-	"current_ops": {},
+	"current_ops": [],
 	"available_banks": {"Franklin Credit Union": canonical_banks["Franklin Credit Union"]},
-	"current_banks": {},
+	"current_banks": [],
 	"biz": {},
 	"underworld_influence": 12,
 	"mode": "look",

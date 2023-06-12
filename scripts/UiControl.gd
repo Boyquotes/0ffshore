@@ -18,8 +18,6 @@ func init_new_op_menu():
 		var op_button = Button.new()
 		op_button.text = op.button_text + " in " + op.location
 		op_button.connect("pressed", self, "_op_proposal", [op])
-		if op.name in GameState.state.current_ops.keys():
-			op_button.disabled = true
 			
 		$GlobalModals/AddOperation/OpButtons.add_child(op_button)
 	
@@ -95,8 +93,7 @@ func init_new_bank_menu():
 		bank_button.text = bank
 		bank = GameState.canonical_banks[bank]
 		bank_button.connect("pressed", self, "_bank_detail", [bank])
-		if bank in GameState.state.current_ops.keys():
-			bank_button.disabled = true
+
 			
 		$GlobalModals/AddBank/BankButtons.add_child(bank_button)
 	

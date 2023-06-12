@@ -105,12 +105,12 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_zoom_in") and self.tilemap_zoom.x <= 2:
 			self.tilemap_zoom.x += 0.025
 			self.tilemap_zoom.y += 0.025
-			$Navigation2D/TileMap.scale = self.tilemap_zoom
+			self.scale = self.tilemap_zoom
 
 		if Input.is_action_pressed("ui_zoom_out") and self.tilemap_zoom.x >= 0.225:
 			self.tilemap_zoom.x -= 0.025
 			self.tilemap_zoom.y -= 0.025
-			$Navigation2D/TileMap.scale = self.tilemap_zoom
+			self.scale = self.tilemap_zoom
 	
 	# When RMB is pressed, move camera by difference of mouse position
 	if drag and Input.is_action_pressed("mouse_right_click"):
