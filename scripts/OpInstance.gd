@@ -4,7 +4,6 @@ var data = {}
 
 func create(data):
 	self.data = data
-	
 	self.texture_normal = load(self.data.icon_img)
 	self.populate_op_info(self.data)
 	
@@ -21,7 +20,10 @@ func set_info_position(pos):
 	$Info.set_global_position(pos)	
 
 func _on_OpInstance_pressed():
-	$PopupMenu.show()
+	if GameState.state.mode == "connect":
+		_set_connect_to()
+	else:
+		$PopupMenu.show()
 
 
 func _on_OK_pressed():
@@ -35,4 +37,13 @@ func _on_PopupMenu_index_pressed(index):
 		1:
 			pass
 		2:
-			pass
+			_set_connect_from()
+			
+func _set_connect_from():
+	GameState.state.mode = "connect"
+	GameState.state.connect_from_cache = self
+
+func _set_connect_to():
+	if !GameState.state.connect_from_cache == self:
+		GameState.state.connect_to_cache = self
+		GameState.emit_signal("summon_connect_menu")

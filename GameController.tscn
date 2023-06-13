@@ -77,29 +77,31 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Accounts:"
 
 [node name="BottomNav" type="Control" parent="GUI/UiController"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 theme = ExtResource( 7 )
 
 [node name="new_op_btn" type="Button" parent="GUI/UiController/BottomNav"]
-margin_left = 450.082
-margin_top = 747.707
-margin_right = 565.082
-margin_bottom = 845.707
+margin_left = 443.718
+margin_top = 732.858
+margin_right = 558.718
+margin_bottom = 830.858
+rect_rotation = -0.0530409
 text = "Add operation"
 
 [node name="new_biz_btn" type="Button" parent="GUI/UiController/BottomNav"]
-margin_left = 594.332
-margin_top = 749.828
-margin_right = 709.332
-margin_bottom = 847.828
+margin_left = 587.968
+margin_top = 734.979
+margin_right = 702.968
+margin_bottom = 832.979
 text = "Add business"
 
 [node name="new_bank_btn" type="Button" parent="GUI/UiController/BottomNav"]
-margin_left = 744.945
-margin_top = 750.535
-margin_right = 859.945
-margin_bottom = 848.535
+margin_left = 738.581
+margin_top = 735.686
+margin_right = 853.581
+margin_bottom = 833.686
 text = "Add bank"
 
 [node name="GlobalModals" type="Control" parent="GUI/UiController"]
@@ -140,7 +142,6 @@ margin_right = 410.0
 margin_bottom = 171.0
 
 [node name="AddBank" type="WindowDialog" parent="GUI/UiController/GlobalModals"]
-visible = true
 margin_left = 648.0
 margin_top = 208.0
 margin_right = 1097.0
@@ -172,11 +173,84 @@ margin_top = 41.5355
 margin_right = 409.293
 margin_bottom = 174.536
 
+[node name="MakePlacement" type="WindowDialog" parent="GUI/UiController/GlobalModals"]
+visible = true
+margin_left = 391.0
+margin_top = 176.0
+margin_right = 842.0
+margin_bottom = 588.0
+window_title = "MAKE PLACEMENT"
+
+[node name="from" type="TextureRect" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 30.5183
+margin_top = 30.2695
+margin_right = 198.518
+margin_bottom = 177.27
+
+[node name="to" type="TextureRect" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 247.742
+margin_top = 29.77
+margin_right = 415.742
+margin_bottom = 176.77
+
+[node name="Panel" type="Panel" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 24.0
+margin_top = 206.0
+margin_right = 438.0
+margin_bottom = 393.0
+
+[node name="OK" type="Button" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 299.0
+margin_top = 269.0
+margin_right = 375.0
+margin_bottom = 305.0
+text = "OK"
+
+[node name="NO" type="Button" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 287.5
+margin_top = 322.5
+margin_right = 384.5
+margin_bottom = 358.5
+text = "CANCEL"
+
+[node name="AssetOption" type="OptionButton" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 59.5
+margin_top = 244.5
+margin_right = 236.5
+margin_bottom = 266.5
+
+[node name="AmountOption" type="OptionButton" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 61.5
+margin_top = 289.5
+margin_right = 220.5
+margin_bottom = 311.5
+
+[node name="ScheduleOption" type="OptionButton" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 59.5
+margin_top = 336.5
+margin_right = 218.5
+margin_bottom = 358.5
+text = "Daily"
+items = [ "Daily", null, false, 0, null, "Weekly", null, false, 1, null, "Monthly", null, false, 2, null, "Yearly", null, false, 3, null ]
+selected = 0
+
+[node name="fromlabel" type="Label" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 51.018
+margin_top = 181.27
+margin_right = 176.018
+margin_bottom = 210.27
+
+[node name="tolabel" type="Label" parent="GUI/UiController/GlobalModals/MakePlacement"]
+margin_left = 280.518
+margin_top = 177.77
+margin_right = 405.518
+margin_bottom = 206.77
+
 [node name="Splash" type="TextureButton" parent="GUI/UiController"]
-margin_left = 402.0
-margin_top = 253.0
-margin_right = 1383.0
-margin_bottom = 858.0
+margin_left = 406.243
+margin_top = 277.042
+margin_right = 1387.24
+margin_bottom = 882.042
 rect_scale = Vector2( 0.5, 0.5 )
 texture_normal = ExtResource( 9 )
 
@@ -198,10 +272,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="ConnexController" type="Control" parent="Camera2D"]
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="IconController" type="Control" parent="Camera2D"]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [connection signal="pressed" from="GUI/UiController/BottomNav/new_op_btn" to="GUI/UiController" method="_on_new_op_btn_pressed"]
 [connection signal="pressed" from="GUI/UiController/BottomNav/new_bank_btn" to="GUI/UiController" method="_on_new_bank_btn_pressed"]
+[connection signal="hide" from="GUI/UiController/GlobalModals/MakePlacement" to="GUI/UiController" method="_on_MakePlacement_hide"]
+[connection signal="pressed" from="GUI/UiController/GlobalModals/MakePlacement/OK" to="GUI/UiController" method="_on_MakePlacement_OK_pressed"]
+[connection signal="pressed" from="GUI/UiController/GlobalModals/MakePlacement/NO" to="GUI/UiController" method="_on_MakePlacement_NO_pressed"]
 [connection signal="pressed" from="GUI/UiController/Splash" to="GUI/UiController" method="_on_Splash_pressed"]

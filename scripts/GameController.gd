@@ -27,8 +27,7 @@ func _input(event):
 				"place_bank":
 					self._place_icon(GameState.state.place_cache[0], "bank", coords[0], coords[0])
 					GameState.state.place_cache = []		
-				_:
-					print("guh")
+
 #
 # 0FFSHORE funcs
 #
@@ -36,11 +35,16 @@ func _input(event):
 
 func _init_playtest():
 	_init_ui()
+	_connect_signals()
 	
 func _init_ui():
 	$GUI/UiController/corpname.text = $GameState.state.corp_name
 	_update_cash(0)
 	_update_accounts(0)
+	
+func _connect_signals():
+	GameState.connect("summon_connect_menu", $GUI/UiController, "summon_connect_menu")
+	GameState.connect("draw_connection", self, "draw_connection")
 
 func _update_cash(amt):
 	var new_cash_total = $GameState.state.total_cash + amt
@@ -51,6 +55,12 @@ func _update_accounts(amt):
 	var new_accounts_total = $GameState.state.total_accounts + amt
 	$GameState.state.total_accounts = new_accounts_total
 	$GUI/UiController/total_accounts.text = "$ " + str(new_accounts_total)
+
+func draw_connection():
+	var line = GameState.state.connection_line_cache
+	$Camera2D/ConnexController.add_child(line)
+	GameState.state.connection_line_cache = null
+
 	
 func _place_icon(data, type, x, y):
 	var instance

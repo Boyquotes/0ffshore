@@ -15,6 +15,7 @@ script = ExtResource( 3 )
 [node name="PopupMenu" type="PopupMenu" parent="."]
 margin_right = 126.0
 margin_bottom = 81.0
+popup_exclusive = true
 items = [ "Info", null, 0, false, false, 0, 0, null, "", false, "Manage", null, 0, false, false, 1, 0, null, "", false, "Connect", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Info" type="WindowDialog" parent="."]

@@ -131,6 +131,78 @@ func reset_bank_menu():
 	$GlobalModals/AddBank/text.text = ""
 
 #
+# CONNECTIONS
+#
+
+func summon_connect_menu():
+	var from = GameState.state.connect_from_cache
+	var to = GameState.state.connect_to_cache
+	
+	_populate_placement_menu(from, to)
+	$GlobalModals/MakePlacement.show()
+	
+func _populate_placement_menu(from, to):
+	_clear_placement_menu()
+	$GlobalModals/MakePlacement/from.texture = load(from.data.proposal_img)
+	$GlobalModals/MakePlacement/to.texture = load(to.data.proposal_img)
+	$GlobalModals/MakePlacement/fromlabel.text = from.data.name
+	$GlobalModals/MakePlacement/tolabel.text = to.data.name
+	$GlobalModals/MakePlacement/AssetOption.add_item("Cash")
+	_populate_asset_amount_options()
+	
+	
+func _populate_asset_amount_options():
+	var item_str
+	for i in range(1, 11):
+		item_str = "$"+str(i)+"k"
+		$GlobalModals/MakePlacement/AmountOption.add_item(item_str)
+		
+func _clear_placement_menu():
+	$GlobalModals/MakePlacement/from.texture = null
+	$GlobalModals/MakePlacement/to.texture = null
+	$GlobalModals/MakePlacement/fromlabel.text = ""
+	$GlobalModals/MakePlacement/tolabel.text = ""
+	$GlobalModals/MakePlacement/AssetOption.clear()
+	$GlobalModals/MakePlacement/AmountOption.clear()
+
+func _on_MakePlacement_NO_pressed():
+	_clear_placement_menu()
+	$GlobalModals/MakePlacement.hide()
+
+func _on_MakePlacement_hide():
+	GameState.state.mode = "look"
+	GameState.state.connect_from_cache = null
+	GameState.state.connect_to_cache = null
+
+func _on_MakePlacement_OK_pressed():
+	var connection = {}
+	var from_node = GameState.state.connect_from_cache
+	var to_node = GameState.state.connect_to_cache
+	var placement_idx = $GlobalModals/MakePlacement/AmountOption.selected
+	var placement_amount = $GlobalModals/MakePlacement/AmountOption.get_item_text(placement_idx)
+	print(placement_amount)
+	placement_amount = placement_amount.replace("$", "").replace("k", "")
+	placement_amount = int(placement_amount) * 1000
+	connection["amount"] = placement_amount
+
+	connection["schedule"] = $GlobalModals/MakePlacement/ScheduleOption.selected
+	
+	connection["from"] = GameState.state.connect_from_cache.name
+	connection["to"] = GameState.state.connect_to_cache.name
+
+	var line = Line2D.new()
+	var from_center = from_node.rect_position + (from_node.rect_size / 2)
+	var to_center = to_node.rect_position + (to_node.rect_size / 2)
+	line.add_point(from_center)
+	line.add_point(to_center)
+	line.width = 5
+	line.default_color = Color.blue
+	GameState.state.connection_line_cache = line
+	GameState.emit_signal("draw_connection")
+	
+	GameState.state.connections.append(connection)
+	_on_MakePlacement_NO_pressed()
+#
 # UTILITY FUNCTIONS
 #
 
@@ -142,3 +214,5 @@ func clear_container(node):
 
 func _on_Splash_pressed():
 	$Splash.visible = false
+	$BottomNav.visible = true
+

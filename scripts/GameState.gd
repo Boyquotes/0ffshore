@@ -1,13 +1,21 @@
 extends Control
 
 #
+# Since GameState is an autoloaded singleton that is globally available,
+# we can use it as a spring board to connect isolated instances to the 
+# main scene via signals 
+
+signal summon_connect_menu
+signal draw_connection
+
+#
 # CANONICAL DATA SHAPES FOR GAME CONCEPTS
 # These are the defaults for operations,
 # banks, businesses, contacts, and facilities 
 #
 var canonical_ops = {
 	"2cb": {
-		"name": "2CB SYNTH LAB",
+		"name": "2cb Snyth Lab",
 		"button_text": "2CB synth lab",
 		"location": "Shasta, CA",
 		"asset": "2cb",
@@ -23,7 +31,7 @@ var canonical_ops = {
 		"operating_cost": 3000
 	},
 	"rare_animals": {
-		"name": "RARE ANIMAL SMUGGLING",
+		"name": "Rare animal smuggling",
 		"button_text": "Exotic animal smuggling ring",
 		"location": "St. Petersburg, FL",
 		"asset": "rare_animals",
@@ -75,8 +83,11 @@ var state = {
 	"current_ops": [],
 	"available_banks": {"Franklin Credit Union": canonical_banks["Franklin Credit Union"]},
 	"current_banks": [],
+	"connections": [],
 	"biz": {},
 	"underworld_influence": 12,
 	"mode": "look",
-	"place_cache": []
+	"place_cache": [],
+	"connect_from_cache": null,
+	"connect_to_cache": null
 }
