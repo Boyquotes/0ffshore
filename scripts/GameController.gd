@@ -14,18 +14,19 @@ func _update():
 func _input(event):
 	if event is InputEventMouseButton:
 
-		var coords = get_viewport().get_mouse_position()
+		var coords = $Camera2D.get_local_mouse_position()
 		
 		# EVERYTHING IS MODE BASED - THE MODE IS GOD
 		# RESPECT ALL MODES
 		
 		if event.button_index == BUTTON_LEFT and event.pressed:
+			print(coords)
 			match GameState.state.mode:			
 				"place_op":
-					self._place_icon(GameState.state.place_cache[0], "op", coords[0], coords[0])
+					self._place_icon(GameState.state.place_cache[0], "op", coords[0]-100, coords[1]-100)
 					GameState.state.place_cache = []
 				"place_bank":
-					self._place_icon(GameState.state.place_cache[0], "bank", coords[0], coords[0])
+					self._place_icon(GameState.state.place_cache[0], "bank", coords[0]-100, coords[1]-100)
 					GameState.state.place_cache = []		
 
 #
@@ -74,11 +75,10 @@ func _place_icon(data, type, x, y):
 	instance.create(data)
 	var q = TextureButton.new()
 	instance.set_position(Vector2(x, y))
-
 	instance.hint_tooltip = data.name
-
+	print("Behg")
+	print(instance.rect_position)
 	$Camera2D/IconController.add_child(instance)
-	
 	#self._update_cash(0 - data.upfront)
 	
 	GameState.state.mode = "look"

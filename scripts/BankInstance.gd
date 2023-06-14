@@ -2,17 +2,11 @@ extends TextureButton
 
 var data = {}
 
-func create(data):
-	self.data = data
-	
-	self.texture_normal = load(self.data.icon_img)
-	self.populate_bank_info(self.data)
-	
-	GameState.state.current_ops.append(self)
+func _input(event):
+	if event is InputEventMouseButton and event.is_pressed() and get_rect().has_point(get_local_mouse_position()):
+		if event.button_index == BUTTON_RIGHT and GameState.state.mode == "look":
+			_on_button_toggled(true)
 
-func _ready():
-	connect("toggled", self, "_on_button_toggled")
-	
 func _on_button_toggled(toggled):
 	var popup = $PopupMenu
 	if toggled:
@@ -20,6 +14,16 @@ func _on_button_toggled(toggled):
 		popup.show()
 	else:
 		popup.hide()
+
+func create(data):
+	self.data = data
+	
+	self.texture_normal = load(self.data.icon_img)
+	self.populate_bank_info(self.data)
+	
+	GameState.state.current_ops.append(self)
+	
+
 	
 func populate_bank_info(data):
 	var bank_txt = "Name: " + data.name + "\n\nLocation: " + data.location + "\n\nAccount total: $" + str(data.account_total)
@@ -34,8 +38,6 @@ func set_info_position(pos):
 func _on_BankInstance_pressed():
 	if GameState.state.mode == "connect":
 		_set_connect_to()
-	else:
-		_on_button_toggled(true)
 
 
 func _on_OK_pressed():

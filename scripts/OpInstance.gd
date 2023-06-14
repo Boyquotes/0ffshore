@@ -2,8 +2,10 @@ extends TextureButton
 
 var data = {}
 
-func _ready():
-	connect("toggled", self, "_on_button_toggled")
+func _input(event):
+	if event is InputEventMouseButton and event.is_pressed() and get_rect().has_point(get_global_mouse_position()):
+		if event.button_index == BUTTON_RIGHT and GameState.state.mode == "look":
+			_on_button_toggled(true)
 	
 func _on_button_toggled(toggled):
 	var popup = $PopupMenu
@@ -35,9 +37,7 @@ func set_info_position(pos):
 func _on_OpInstance_pressed():
 	if GameState.state.mode == "connect":
 		_set_connect_to()
-	else:
-		$PopupMenu.show()
-
+		
 func _on_OK_pressed():
 	$Info.hide()
 
@@ -45,7 +45,7 @@ func _on_OK_pressed():
 func _on_PopupMenu_index_pressed(index):
 	match index:
 		0:
-			$Info.rect_global_position = rect_global_position + Vector2(0, rect_min_size.y-300)
+			$Info.rect_global_position = rect_global_position + Vector2(0, rect_min_size.y)
 			$Info.show()
 		1:
 			pass
