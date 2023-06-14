@@ -49,3 +49,4 @@ text = "OK"
 
 [connection signal="pressed" from="." to="." method="_on_BankInstance_pressed"]
 [connection signal="index_pressed" from="PopupMenu" to="." method="_on_PopupMenu_index_pressed"]
+[connection signal="pressed" from="Info/OK" to="." method="_on_OK_pressed"]

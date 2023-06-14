@@ -35,7 +35,7 @@ func _on_BankInstance_pressed():
 	if GameState.state.mode == "connect":
 		_set_connect_to()
 	else:
-		$PopupMenu.show()
+		_on_button_toggled(true)
 
 
 func _on_OK_pressed():
