@@ -72,9 +72,9 @@ func _place_icon(data, type, x, y):
 			instance = bank_instance.instance()
 			
 	instance.create(data)
-	instance.set_global_position(Vector2(x, y))
-	instance.set_popup_position(Vector2(x, y))
-	instance.set_info_position(Vector2(x,y-200))
+	var q = TextureButton.new()
+	instance.set_position(Vector2(x, y))
+
 	instance.hint_tooltip = data.name
 
 	$Camera2D/IconController.add_child(instance)

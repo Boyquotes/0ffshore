@@ -9,6 +9,17 @@ func create(data):
 	self.populate_bank_info(self.data)
 	
 	GameState.state.current_ops.append(self)
+
+func _ready():
+	connect("toggled", self, "_on_button_toggled")
+	
+func _on_button_toggled(toggled):
+	var popup = $PopupMenu
+	if toggled:
+		popup.rect_global_position = rect_global_position + Vector2(0, rect_min_size.y)
+		popup.show()
+	else:
+		popup.hide()
 	
 func populate_bank_info(data):
 	var bank_txt = "Name: " + data.name + "\n\nLocation: " + data.location + "\n\nAccount total: $" + str(data.account_total)
@@ -35,6 +46,7 @@ func _on_PopupMenu_index_pressed(index):
 	match index:
 		0:
 			populate_bank_info(self.data)
+			$Info.rect_global_position = rect_global_position + Vector2(0, rect_min_size.y-150)
 			$Info.show()
 		1:
 			pass

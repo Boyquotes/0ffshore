@@ -8,6 +8,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1100.0
 margin_bottom = -700.0
+theme = ExtResource( 1 )
+toggle_mode = true
 script = ExtResource( 2 )
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
@@ -18,10 +20,11 @@ items = [ "Info", null, 0, false, false, 0, 0, null, "", false, "Manage", null, 
 hide_on_state_item_selection = true
 
 [node name="Info" type="WindowDialog" parent="."]
-margin_left = 115.0
-margin_top = -363.0
-margin_right = 519.0
-margin_bottom = -11.0
+visible = true
+margin_left = 279.049
+margin_top = 55.6072
+margin_right = 683.049
+margin_bottom = 407.607
 theme = ExtResource( 1 )
 window_title = "Operation Info"
 
@@ -45,3 +48,4 @@ margin_bottom = 317.172
 text = "OK"
 
 [connection signal="pressed" from="." to="." method="_on_BankInstance_pressed"]
+[connection signal="index_pressed" from="PopupMenu" to="." method="_on_PopupMenu_index_pressed"]
